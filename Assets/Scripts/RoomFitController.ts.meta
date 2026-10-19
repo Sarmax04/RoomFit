@@ -1,0 +1,128 @@
+- !<AssetImportMetadata/0f770b2f-13b6-4b8b-9f3b-4366815e853a>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> eac29fc6-7fc2-41f4-997b-e36aa5343cf0
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> eac29fc6-7fc2-41f4-997b-e36aa5343cf0
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 5256edee-5a26-4fe2-934e-83a8785ffc52
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/5256edee-5a26-4fe2-934e-83a8785ffc52>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 17ea3263-df8b-43df-9e3a-a5efd65cf186
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    clearColor: false
+    clearanceCm: false
+    coffeeTable: false
+    debugColliders: false
+    doorHeight: false
+    doorWidth: false
+    doorway: false
+    floorColor: false
+    gapFadeSeconds: false
+    labelsUI: false
+    litMaterial: false
+    outlineRoot: false
+    outlineWidthCm: false
+    panelUI: false
+    pieceRoot: false
+    room: false
+    roomDepth: false
+    roomWidth: false
+    rotateStepDeg: false
+    startInsetCm: false
+    tooCloseColor: false
+    unlitMaterial: false
+    wallColor: false
+    wallHeight: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - room: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      doorway: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      coffeeTable: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      pieceRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      outlineRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      panelUI: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      labelsUI: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      litMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      unlitMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      roomWidth: !<float> 400.000000
+      roomDepth: !<float> 500.000000
+      wallHeight: !<float> 250.000000
+      startInsetCm: !<float> 30.000000
+      doorWidth: !<float> 90.000000
+      doorHeight: !<float> 200.000000
+      wallColor: !<Vec4> {x: 0.920000, y: 0.910000, z: 0.880000, w: 1.000000}
+      floorColor: !<Vec4> {x: 0.720000, y: 0.700000, z: 0.660000, w: 1.000000}
+      clearanceCm: !<float> 80.000000
+      rotateStepDeg: !<float> 15.000000
+      gapFadeSeconds: !<float> 1.000000
+      clearColor: !<Vec4> {x: 0.350000, y: 0.850000, z: 0.450000, w: 1.000000}
+      tooCloseColor: !<Vec4> {x: 1.000000, y: 0.300000, z: 0.250000, w: 1.000000}
+      outlineWidthCm: 1.500000
+      debugColliders: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">RoomFitController – state, clearance, room</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input SceneObject room {"hint":"Root of the virtual stand-in room; its origin is the floor under the start position"}'
+    - '// @input SceneObject doorway {"hint":"Doorway root (authored at the near wall line)"}'
+    - "// @input SceneObject coffeeTable {\"hint\":\"Coffee table root — its local X/Z is the obstacle's footprint center\"}"
+    - '// @input SceneObject pieceRoot {"hint":"Piece root — moved/rotated on the floor; its authored X/Z is the start spot"}'
+    - '// @input SceneObject outlineRoot {"hint":"Floor outline root (follows the piece)"}'
+    - '// @input AssignableType_1 panelUI {"hint":"Control panel view"}'
+    - '// @input AssignableType_2 labelsUI {"hint":"Dimension + gap label view"}'
+    - '// @input Asset.Material litMaterial {"hint":"Lit template material for room + furniture boxes (cloned per color)"}'
+    - '// @input Asset.Material unlitMaterial {"hint":"Unlit template material for the floor outline (cloned per color)"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Room"}'
+    - '// @input float roomWidth = 400 {"hint":"Room width (X), cm", "widget":"slider", "min":250, "max":800, "step":10}'
+    - '// @input float roomDepth = 500 {"hint":"Room depth (Z), cm", "widget":"slider", "min":250, "max":800, "step":10}'
+    - '// @input float wallHeight = 250 {"hint":"Wall height, cm", "widget":"slider", "min":200, "max":350, "step":5}'
+    - '// @input float startInsetCm = 30 {"hint":"How far the doorway wall line is behind the start position, cm", "widget":"slider", "min":10, "max":100, "step":1}'
+    - '// @input float doorWidth = 90 {"hint":"Doorway opening width, cm", "widget":"slider", "min":60, "max":140, "step":1}'
+    - '// @input float doorHeight = 200 {"hint":"Doorway opening height, cm", "widget":"slider", "min":180, "max":240, "step":1}'
+    - '// @input vec4 wallColor = "{0.92, 0.91, 0.88, 1.0}" {"hint":"Wall color (light)", "widget":"color"}'
+    - '// @input vec4 floorColor = "{0.72, 0.7, 0.66, 1.0}" {"hint":"Floor color", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Clearance"}'
+    - '// @input float clearanceCm = 80 {"hint":"Minimum free space to walls, doorway wall and coffee table, cm", "widget":"slider", "min":30, "max":150, "step":1}'
+    - '// @input float rotateStepDeg = 15 {"hint":"Rotate button step, degrees", "widget":"slider", "min":5, "max":90, "step":1}'
+    - '// @input float gapFadeSeconds = 1 {"hint":"Gap number fade-out time after going green, seconds", "widget":"slider", "min":0.2, "max":3, "step":0.1}'
+    - '// @input vec4 clearColor = "{0.35, 0.85, 0.45, 1.0}" {"hint":"Outline color when clear", "widget":"color"}'
+    - '// @input vec4 tooCloseColor = "{1.0, 0.3, 0.25, 1.0}" {"hint":"Outline edge color when too close", "widget":"color"}'
+    - '// @input float outlineWidthCm = 1.5 {"hint":"Outline line width, cm (thin + faint)", "widget":"slider", "min":0.5, "max":5, "step":0.1}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Debug"}'
+    - "// @input bool debugColliders {\"hint\":\"Wireframe the piece's grab collider\"}"
+    - '// @ui {"widget":"group_end"}'

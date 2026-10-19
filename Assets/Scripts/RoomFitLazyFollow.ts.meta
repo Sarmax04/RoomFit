@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/5d62a641-2d87-4de0-85e0-a474a7aedaf9>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 61b4ae99-fa56-4d57-ace7-e78781fd7151
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 61b4ae99-fa56-4d57-ace7-e78781fd7151
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 1febcc04-9d11-48e1-ba46-9c6f361cf496
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/1febcc04-9d11-48e1-ba46-9c6f361cf496>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 0872c47d-26cb-42ce-8260-d110ea1e3243
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    deadZoneCm: false
+    distanceCm: false
+    dropCm: false
+    followSpeed: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - distanceCm: !<float> 100.000000
+      dropCm: !<float> 20.000000
+      followSpeed: 2.500000
+      deadZoneCm: !<float> 8.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">RoomFitLazyFollow – lazy head-follow</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float distanceCm = 100 {"hint":"Distance in front of the user, cm", "widget":"slider", "min":40, "max":200, "step":1}'
+    - '// @input float dropCm = 20 {"hint":"How far below eye level, cm", "widget":"slider", "min":0, "max":60, "step":1}'
+    - '// @input float followSpeed = 2.5 {"hint":"Follow responsiveness (higher = snappier, lower = lazier)", "widget":"slider", "min":0.5, "max":10, "step":0.1}'
+    - '// @input float deadZoneCm = 8 {"hint":"Panel does not move until its target drifts farther than this, cm", "widget":"slider", "min":0, "max":40, "step":1}'
+    - '// @ui {"widget":"group_end"}'

@@ -4708,14 +4708,472 @@
       ]
     },
     {
-      "id": "c34078ca-9a0f-4f22-aae1-04bb5ee35075",
-      "name": "Cube",
+      "id": "8e3a9a80-ea77-4e78-b618-e6547f0905bf",
+      "name": "RoomFitController",
       "enabled": true,
       "parentId": null,
       "transform": {
         "position": [
           0,
           0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "26006b78-6ef2-4474-bd4f-c32593b049dc",
+          "type": "ScriptComponent",
+          "name": "RoomFitController",
+          "enabled": true,
+          "properties": {
+            "debugColliders": {
+              "isScriptInput": true,
+              "value": false,
+              "type": "bool",
+              "uiInfo": "{\"hint\":\"Wireframe the piece's grab collider\"}"
+            },
+            "clearanceCm": {
+              "isScriptInput": true,
+              "value": 80,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Minimum free space to walls, doorway wall and coffee table, cm\", \"widget\":\"slider\", \"min\":30, \"max\":150, \"step\":1}",
+              "defaultValue": "80"
+            },
+            "clearColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.35, y: 0.85, z: 0.45, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Outline color when clear\", \"widget\":\"color\"}",
+              "defaultValue": "{0.35, 0.85, 0.45, 1.0}"
+            },
+            "doorWidth": {
+              "isScriptInput": true,
+              "value": 90,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Doorway opening width, cm\", \"widget\":\"slider\", \"min\":60, \"max\":140, \"step\":1}",
+              "defaultValue": "90"
+            },
+            "coffeeTable": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "f07ead09-bd04-4aef-9aae-6fc3a3453f1d",
+                "name": "CoffeeTable"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Coffee table root — its local X/Z is the obstacle's footprint center\"}"
+            },
+            "doorHeight": {
+              "isScriptInput": true,
+              "value": 200,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Doorway opening height, cm\", \"widget\":\"slider\", \"min\":180, \"max\":240, \"step\":1}",
+              "defaultValue": "200"
+            },
+            "floorColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.72, y: 0.7, z: 0.66, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Floor color\", \"widget\":\"color\"}",
+              "defaultValue": "{0.72, 0.7, 0.66, 1.0}"
+            },
+            "wallColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.92, y: 0.91, z: 0.88, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Wall color (light)\", \"widget\":\"color\"}",
+              "defaultValue": "{0.92, 0.91, 0.88, 1.0}"
+            },
+            "doorway": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "23951e6e-e4be-4a1c-bd46-027c3d5a273e",
+                "name": "Doorway"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Doorway root (authored at the near wall line)\"}"
+            },
+            "gapFadeSeconds": {
+              "isScriptInput": true,
+              "value": 1,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Gap number fade-out time after going green, seconds\", \"widget\":\"slider\", \"min\":0.2, \"max\":3, \"step\":0.1}",
+              "defaultValue": "1"
+            },
+            "labelsUI": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "38e10e1c-0cba-4e00-8fa5-3d023d42af07",
+                "name": "RoomFitLabelsUI"
+              },
+              "type": "AssignableType_2",
+              "uiInfo": "{\"hint\":\"Dimension + gap label view\"}"
+            },
+            "litMaterial": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "94cad239-6d55-4372-b1e0-ccc278a962bf",
+                "name": "RoomFitLit"
+              },
+              "type": "Asset.Material",
+              "uiInfo": "{\"hint\":\"Lit template material for room + furniture boxes (cloned per color)\"}"
+            },
+            "outlineRoot": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "9217624d-1781-49e9-8bcb-4f906543e0cf",
+                "name": "FloorOutline"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Floor outline root (follows the piece)\"}"
+            },
+            "outlineWidthCm": {
+              "isScriptInput": true,
+              "value": 1.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Outline line width, cm (thin + faint)\", \"widget\":\"slider\", \"min\":0.5, \"max\":5, \"step\":0.1}",
+              "defaultValue": "1.5"
+            },
+            "panelUI": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "9d01d615-0736-430c-9cb8-d9b89eaf0402",
+                "name": "RoomFitPanelUI"
+              },
+              "type": "AssignableType_1",
+              "uiInfo": "{\"hint\":\"Control panel view\"}"
+            },
+            "pieceRoot": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "9ea37b61-0825-4c69-a65d-51e0fede99b0",
+                "name": "Piece"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Piece root — moved/rotated on the floor; its authored X/Z is the start spot\"}"
+            },
+            "room": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "ad9aba06-e6ae-4aae-a1e2-ed5e787519db",
+                "name": "VirtualRoom"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Root of the virtual stand-in room; its origin is the floor under the start position\"}"
+            },
+            "roomDepth": {
+              "isScriptInput": true,
+              "value": 500,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Room depth (Z), cm\", \"widget\":\"slider\", \"min\":250, \"max\":800, \"step\":10}",
+              "defaultValue": "500"
+            },
+            "roomWidth": {
+              "isScriptInput": true,
+              "value": 400,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Room width (X), cm\", \"widget\":\"slider\", \"min\":250, \"max\":800, \"step\":10}",
+              "defaultValue": "400"
+            },
+            "rotateStepDeg": {
+              "isScriptInput": true,
+              "value": 15,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Rotate button step, degrees\", \"widget\":\"slider\", \"min\":5, \"max\":90, \"step\":1}",
+              "defaultValue": "15"
+            },
+            "startInsetCm": {
+              "isScriptInput": true,
+              "value": 30,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"How far the doorway wall line is behind the start position, cm\", \"widget\":\"slider\", \"min\":10, \"max\":100, \"step\":1}",
+              "defaultValue": "30"
+            },
+            "tooCloseColor": {
+              "isScriptInput": true,
+              "value": "{x: 1, y: 0.3, z: 0.25, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Outline edge color when too close\", \"widget\":\"color\"}",
+              "defaultValue": "{1.0, 0.3, 0.25, 1.0}"
+            },
+            "unlitMaterial": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "1b4c85ca-84a0-4242-8cc6-d03d65a80078",
+                "name": "RoomFitUnlit"
+              },
+              "type": "Asset.Material",
+              "uiInfo": "{\"hint\":\"Unlit template material for the floor outline (cloned per color)\"}"
+            },
+            "wallHeight": {
+              "isScriptInput": true,
+              "value": 250,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Wall height, cm\", \"widget\":\"slider\", \"min\":200, \"max\":350, \"step\":5}",
+              "defaultValue": "250"
+            },
+            "scriptAsset": "@asset:Scripts/RoomFitController.ts",
+            "inputNames.0": "clearColor",
+            "inputNames.1": "clearanceCm",
+            "inputNames.2": "coffeeTable",
+            "inputNames.3": "debugColliders",
+            "inputNames.4": "doorHeight",
+            "inputNames.5": "doorWidth",
+            "inputNames.6": "doorway",
+            "inputNames.7": "floorColor",
+            "inputNames.8": "gapFadeSeconds",
+            "inputNames.9": "labelsUI",
+            "inputNames.10": "litMaterial",
+            "inputNames.11": "outlineRoot",
+            "inputNames.12": "outlineWidthCm",
+            "inputNames.13": "panelUI",
+            "inputNames.14": "pieceRoot",
+            "inputNames.15": "room",
+            "inputNames.16": "roomDepth",
+            "inputNames.17": "roomWidth",
+            "inputNames.18": "rotateStepDeg",
+            "inputNames.19": "startInsetCm",
+            "inputNames.20": "tooCloseColor",
+            "inputNames.21": "unlitMaterial",
+            "inputNames.22": "wallColor",
+            "inputNames.23": "wallHeight",
+            "name": "RoomFitController",
+            "enabled": true,
+            "sceneObject": "@sceneObject:RoomFitController",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "26006b78-6ef2-4474-bd4f-c32593b049dc",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ad9aba06-e6ae-4aae-a1e2-ed5e787519db",
+      "name": "VirtualRoom",
+      "enabled": true,
+      "parentId": null,
+      "transform": {
+        "position": [
+          0,
+          -160,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "23951e6e-e4be-4a1c-bd46-027c3d5a273e",
+      "name": "Doorway",
+      "enabled": true,
+      "parentId": "ad9aba06-e6ae-4aae-a1e2-ed5e787519db",
+      "transform": {
+        "position": [
+          0,
+          0,
+          30
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "f07ead09-bd04-4aef-9aae-6fc3a3453f1d",
+      "name": "CoffeeTable",
+      "enabled": true,
+      "parentId": "ad9aba06-e6ae-4aae-a1e2-ed5e787519db",
+      "transform": {
+        "position": [
+          150,
+          0,
+          -445
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "9ea37b61-0825-4c69-a65d-51e0fede99b0",
+      "name": "Piece",
+      "enabled": true,
+      "parentId": "ad9aba06-e6ae-4aae-a1e2-ed5e787519db",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -220
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "9217624d-1781-49e9-8bcb-4f906543e0cf",
+      "name": "FloorOutline",
+      "enabled": true,
+      "parentId": "ad9aba06-e6ae-4aae-a1e2-ed5e787519db",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -220
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": []
+    },
+    {
+      "id": "73ed8e46-5c4f-4bb2-b20f-49004b1461c8",
+      "name": "WorldLabels",
+      "enabled": true,
+      "parentId": "ad9aba06-e6ae-4aae-a1e2-ed5e787519db",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "38e10e1c-0cba-4e00-8fa5-3d023d42af07",
+          "type": "ScriptComponent",
+          "name": "RoomFitLabelsUI",
+          "enabled": true,
+          "properties": {
+            "labelScale": {
+              "isScriptInput": true,
+              "value": 4.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Uniform scale for the dimension labels (4.5 ≈ 8 cm tall digits)\", \"widget\":\"slider\", \"min\":1, \"max\":8, \"step\":0.1}",
+              "defaultValue": "4.5"
+            },
+            "backingColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.42, y: 0.44, z: 0.48, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Mid-tone backing plate color behind the dimension text\", \"widget\":\"color\"}",
+              "defaultValue": "{0.42, 0.44, 0.48, 1.0}"
+            },
+            "gapColor": {
+              "isScriptInput": true,
+              "value": "{x: 1, y: 0.55, z: 0.5, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Gap number color\", \"widget\":\"color\"}",
+              "defaultValue": "{1.0, 0.55, 0.5, 1.0}"
+            },
+            "gapScale": {
+              "isScriptInput": true,
+              "value": 5.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Uniform scale for the floor gap number\", \"widget\":\"slider\", \"min\":1, \"max\":10, \"step\":0.1}",
+              "defaultValue": "5.5"
+            },
+            "labelColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.96, y: 0.96, z: 0.96, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Dimension label text color (keep light — dark renders transparent on Specs)\", \"widget\":\"color\"}",
+              "defaultValue": "{0.96, 0.96, 0.96, 1.0}"
+            },
+            "scriptAsset": "@asset:Scripts/RoomFitLabelsUI.ts",
+            "inputNames.0": "backingColor",
+            "inputNames.1": "gapColor",
+            "inputNames.2": "gapScale",
+            "inputNames.3": "labelColor",
+            "inputNames.4": "labelScale",
+            "name": "RoomFitLabelsUI",
+            "enabled": true,
+            "sceneObject": "@sceneObject:WorldLabels",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "38e10e1c-0cba-4e00-8fa5-3d023d42af07",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "e857a34f-2ecc-4cbf-a87f-ce0a56cc711c",
+      "name": "Panel",
+      "enabled": true,
+      "parentId": null,
+      "transform": {
+        "position": [
+          0,
+          -20,
           -100
         ],
         "rotation": [
@@ -4724,113 +5182,206 @@
           0
         ],
         "scale": [
-          20,
-          20,
-          20
+          1,
+          1,
+          1
         ]
       },
       "layers": 1,
       "components": [
         {
-          "id": "55f26571-fd49-464c-bf91-fc2f93f3c8fd",
-          "type": "RenderMeshVisual",
-          "name": "Render Mesh Visual",
+          "id": "9d01d615-0736-430c-9cb8-d9b89eaf0402",
+          "type": "ScriptComponent",
+          "name": "RoomFitPanelUI",
           "enabled": true,
           "properties": {
-            "mesh": "@asset:CubeMesh.mesh",
-            "blendShapesEnabled": true,
-            "blendNormals": false,
-            "materials.0": "@asset:CubeTealMaterial.mat",
-            "mainMaterial": "@asset:CubeTealMaterial.mat",
-            "stretchMode": {
-              "value": "Stretch",
-              "type": "enum",
-              "enumType": "Editor.Components.StretchMode",
-              "options": [
-                "Fill",
-                "Fit",
-                "Stretch",
-                "FitHeight",
-                "FitWidth",
-                "FillAndCut"
-              ]
+            "iconSize": {
+              "isScriptInput": true,
+              "value": 2.4000000953674316,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Icon size inside each button, in cm\", \"widget\":\"slider\", \"min\":1, \"max\":4, \"step\":0.1}",
+              "defaultValue": "2.4"
             },
-            "verticalAlignment": {
-              "value": "Center",
-              "type": "enum",
-              "enumType": "Editor.Alignment.Vertical",
-              "options": [
-                "Bottom",
-                "Center",
-                "Top"
-              ]
+            "arrowColor": {
+              "isScriptInput": true,
+              "value": "{x: 1, y: 0.82, z: 0.45, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Color of the 'piece is behind you' arrow\", \"widget\":\"color\"}",
+              "defaultValue": "{1.0, 0.82, 0.45, 1.0}"
             },
-            "horizontalAlignment": {
-              "value": "Center",
-              "type": "enum",
-              "enumType": "Editor.Alignment.Horizontal",
-              "options": [
-                "Left",
-                "Center",
-                "Right"
-              ]
+            "buttonWidth": {
+              "isScriptInput": true,
+              "value": 6.400000095367432,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Button width in cm (brief: about 6 cm)\", \"widget\":\"slider\", \"min\":4, \"max\":10, \"step\":0.1}",
+              "defaultValue": "6.4"
             },
-            "meshShadowMode": {
-              "value": "None",
-              "type": "enum",
-              "enumType": "Editor.Components.MeshShadowMode",
-              "options": [
-                "None",
-                "Caster",
-                "Receiver"
-              ]
+            "buttonGap": {
+              "isScriptInput": true,
+              "value": 2,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Gap between buttons in cm (brief: about 2 cm)\", \"widget\":\"slider\", \"min\":0.5, \"max\":4, \"step\":0.1}",
+              "defaultValue": "2"
             },
-            "shadowColor": {
-              "x": 1,
-              "y": 1,
-              "z": 1,
-              "w": 1
+            "padding": {
+              "isScriptInput": true,
+              "value": 1.600000023841858,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Panel padding in cm\", \"widget\":\"slider\", \"min\":0.5, \"max\":4, \"step\":0.1}",
+              "defaultValue": "1.6"
             },
-            "shadowDensity": 1,
-            "renderOrder": 0,
-            "name": "Render Mesh Visual",
+            "buttonHeight": {
+              "isScriptInput": true,
+              "value": 6,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Button height in cm\", \"widget\":\"slider\", \"min\":4, \"max\":10, \"step\":0.1}",
+              "defaultValue": "6"
+            },
+            "scriptAsset": "@asset:Scripts/RoomFitPanelUI.ts",
+            "inputNames.0": "arrowColor",
+            "inputNames.1": "buttonGap",
+            "inputNames.2": "buttonHeight",
+            "inputNames.3": "buttonWidth",
+            "inputNames.4": "iconSize",
+            "inputNames.5": "padding",
+            "name": "RoomFitPanelUI",
             "enabled": true,
-            "sceneObject": "@sceneObject:Cube",
+            "sceneObject": "@sceneObject:Panel",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
-            "id": "55f26571-fd49-464c-bf91-fc2f93f3c8fd",
-            "type": "RenderMeshVisual"
+            "id": "9d01d615-0736-430c-9cb8-d9b89eaf0402",
+            "type": "ScriptComponent"
           }
         },
         {
-          "id": "da72f403-4f0c-4406-9c34-1d3d83c25db1",
+          "id": "b718a4d3-a1c7-4446-b874-16899fec0b23",
           "type": "ScriptComponent",
-          "name": "CubeSpin",
+          "name": "RoomFitLazyFollow",
           "enabled": true,
           "properties": {
-            "rotationSpeedDegPerSec": {
+            "deadZoneCm": {
               "isScriptInput": true,
-              "value": 30,
+              "value": 8,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Rotation speed in degrees per second\", \"widget\":\"slider\", \"min\":0, \"max\":180, \"step\":1}",
-              "defaultValue": "30"
+              "uiInfo": "{\"hint\":\"Panel does not move until its target drifts farther than this, cm\", \"widget\":\"slider\", \"min\":0, \"max\":40, \"step\":1}",
+              "defaultValue": "8"
             },
-            "spinAxis": {
+            "distanceCm": {
               "isScriptInput": true,
-              "value": "{x: 0.3, y: 1, z: 0}",
-              "type": "vec3",
-              "uiInfo": "{\"hint\":\"Axis to spin around (normalized at runtime)\"}",
-              "defaultValue": "{0.3,1,0}"
+              "value": 100,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Distance in front of the user, cm\", \"widget\":\"slider\", \"min\":40, \"max\":200, \"step\":1}",
+              "defaultValue": "100"
             },
-            "scriptAsset": "@asset:Scripts/CubeSpin.ts",
-            "inputNames.0": "rotationSpeedDegPerSec",
-            "inputNames.1": "spinAxis",
-            "name": "CubeSpin",
+            "dropCm": {
+              "isScriptInput": true,
+              "value": 20,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"How far below eye level, cm\", \"widget\":\"slider\", \"min\":0, \"max\":60, \"step\":1}",
+              "defaultValue": "20"
+            },
+            "followSpeed": {
+              "isScriptInput": true,
+              "value": 2.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Follow responsiveness (higher = snappier, lower = lazier)\", \"widget\":\"slider\", \"min\":0.5, \"max\":10, \"step\":0.1}",
+              "defaultValue": "2.5"
+            },
+            "scriptAsset": "@asset:Scripts/RoomFitLazyFollow.ts",
+            "inputNames.0": "deadZoneCm",
+            "inputNames.1": "distanceCm",
+            "inputNames.2": "dropCm",
+            "inputNames.3": "followSpeed",
+            "name": "RoomFitLazyFollow",
             "enabled": true,
-            "sceneObject": "@sceneObject:Cube",
+            "sceneObject": "@sceneObject:Panel",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
-            "id": "da72f403-4f0c-4406-9c34-1d3d83c25db1",
+            "id": "b718a4d3-a1c7-4446-b874-16899fec0b23",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c3c118f5-c2c4-44c7-9863-ff498b18974b",
+      "name": "AiPreviewAgent Handler",
+      "enabled": true,
+      "parentId": null,
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "afaecd3a-38d8-4a6f-8535-39159383d9a2",
+          "type": "ScriptComponent",
+          "name": "AgentInspectScript",
+          "enabled": true,
+          "properties": {
+            "scriptAsset": "@asset:Packages/AiPreviewAgentInspect.lspkg/AgentInspectScript.ts",
+            "name": "AgentInspectScript",
+            "enabled": true,
+            "sceneObject": "@sceneObject:AiPreviewAgent Handler",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "afaecd3a-38d8-4a6f-8535-39159383d9a2",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2a8cee4d-e8da-4af3-9787-cdd774fb39fb",
+      "name": "LeafIndex",
+      "enabled": true,
+      "parentId": null,
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "a2b4a517-66b0-4671-be4d-22cdbfa2591a",
+          "type": "ScriptComponent",
+          "name": "LeafIndex",
+          "enabled": true,
+          "properties": {
+            "scriptAsset": "@asset:Tests/RoomFitLeaf/LeafIndex.ts",
+            "name": "LeafIndex",
+            "enabled": true,
+            "sceneObject": "@sceneObject:LeafIndex",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "a2b4a517-66b0-4671-be4d-22cdbfa2591a",
             "type": "ScriptComponent"
           }
         }
@@ -5244,6 +5795,217 @@
         "name": "HighlightMat",
         "fileMeta.id": "d070e7eb-0cda-66a3-e630-e7710c83021b",
         "id": "37158f80-142b-46e7-a128-2049767f5e85",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "dd555183-9e66-477f-95b3-98c0f63ae002",
+      "name": "ImageMaterial",
+      "type": "Material",
+      "path": "Materials/ImageMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value.id": "d7046265-b7ba-4a2f-929a-804cdddaade2",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.opacityMul.value": null,
+        "passInfos.0.opacityMul.hidden": true,
+        "passInfos.0.opacityMul.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityMul.label": "Opacity Multiplier",
+        "passInfos.0.opacityMul.min": 0,
+        "passInfos.0.opacityMul.max": 1,
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": false,
+        "passInfos.0.depthTest": false,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "PremultipliedAlphaAuto",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "55544a01-3959-4364-8d16-b741a7015aa5",
+        "passInfos.0.type": "PassInfo",
+        "name": "ImageMaterial",
+        "fileMeta.id": "b5970010-046d-4a83-8235-8d4b9aa06c56",
+        "id": "dd555183-9e66-477f-95b3-98c0f63ae002",
         "type": "Material"
       }
     },
@@ -10036,6 +10798,68 @@
       }
     },
     {
+      "id": "11223344-5566-4778-99aa-bbccdd001122",
+      "name": "Debug Render Target Persp",
+      "type": "RenderTarget",
+      "path": "Packages/Leaf.lspkg/Interactors/interactor/ik/visualizer/bitmoji/Debug Render Target Persp.renderTarget",
+      "properties": {
+        "useScreenResolution": true,
+        "allocateMips": false,
+        "antialiasingMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.AntialiasingMode",
+          "options": [
+            "Disabled",
+            "MSAA",
+            "TAA"
+          ]
+        },
+        "msaaStrategy": {
+          "value": "OnlyWhenRequired",
+          "type": "enum",
+          "enumType": "Editor.Assets.MSAAStrategy",
+          "options": [
+            "Default",
+            "OnlyWhenRequired"
+          ]
+        },
+        "depthBuffer": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthBufferStrategy",
+          "options": [
+            "Auto",
+            "ForceOff",
+            "ForceOn"
+          ]
+        },
+        "clearColorOption": {
+          "value": "CustomColor",
+          "type": "enum",
+          "enumType": "Editor.Assets.ClearColorOption",
+          "options": [
+            "None",
+            "BackgroundTexture",
+            "CustomColor",
+            "CustomTexture",
+            "LegacyClearColorEnable"
+          ]
+        },
+        "inputTexture": null,
+        "clearColor": {
+          "x": 0.10000000149011612,
+          "y": 0,
+          "z": 0.15000000596046448,
+          "w": 1
+        },
+        "name": "Debug Render Target Persp",
+        "fileMeta.id": "56b8b6bc-6f9a-f2dd-1f85-5ac077085ebe",
+        "id": "11223344-5566-4778-99aa-bbccdd001122",
+        "type": "RenderTarget"
+      }
+    },
+    {
       "id": "f99407ce-416a-43f3-baf8-668a42712de9",
       "name": "SpectaclesInteractionKit",
       "type": "ObjectPrefab",
@@ -10569,152 +11393,6 @@
         "name": "CaretMat",
         "fileMeta.id": "d0c19a8f-0d31-c07c-68d8-e34509cc512f",
         "id": "43cde67a-7dd6-4f67-b6e2-23dce0d651c2",
-        "type": "Material"
-      }
-    },
-    {
-      "id": "8e7ebf00-ca81-4115-a03a-568bc0591e0a",
-      "name": "CubeTealMaterial",
-      "type": "Material",
-      "path": "CubeTealMaterial.mat",
-      "properties": {
-        "passInfos.0.baseColor.value": {
-          "x": 0.20000000298023224,
-          "y": 0.75,
-          "z": 0.800000011920929,
-          "w": 1
-        },
-        "passInfos.0.baseColor.label": "Base Color",
-        "passInfos.0.baseTex.value.id": "3ace18a7-1472-47d0-9507-a0c962d89aae",
-        "passInfos.0.baseTex.label": "Base Texture",
-        "passInfos.0.metallic.value": 0,
-        "passInfos.0.metallic.label": "Metallic",
-        "passInfos.0.metallic.min": 0,
-        "passInfos.0.metallic.max": 1,
-        "passInfos.0.roughness.value": 0,
-        "passInfos.0.roughness.label": "Roughness",
-        "passInfos.0.roughness.min": 0,
-        "passInfos.0.roughness.max": 1,
-        "passInfos.0.alphaTestThreshold.value": null,
-        "passInfos.0.alphaTestThreshold.hidden": true,
-        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
-        "passInfos.0.alphaTestThreshold.min": 0,
-        "passInfos.0.alphaTestThreshold.max": 1,
-        "passInfos.0.Port_AO_N006": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        },
-        "passInfos.0.Port_Emissive_N006": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "passInfos.0.Port_SpecularAO_N006": {
-          "x": 1,
-          "y": 1,
-          "z": 1
-        },
-        "passInfos.0.PreviewEnabled": 0,
-        "passInfos.0.depthWrite": true,
-        "passInfos.0.depthTest": true,
-        "passInfos.0.depthFunction": {
-          "value": "LessEqual",
-          "type": "enum",
-          "enumType": "Editor.Assets.DepthFunction",
-          "options": [
-            "Never",
-            "Less",
-            "Equal",
-            "LessEqual",
-            "Greater",
-            "NotEqual",
-            "GreaterEqual",
-            "Always"
-          ]
-        },
-        "passInfos.0.twoSided": false,
-        "passInfos.0.cullMode": {
-          "value": "Back",
-          "type": "enum",
-          "enumType": "Editor.Assets.CullMode",
-          "options": [
-            "Front",
-            "Back",
-            "FrontAndBack"
-          ]
-        },
-        "passInfos.0.blendMode": {
-          "value": "Disabled",
-          "type": "enum",
-          "enumType": "Editor.Assets.BlendMode",
-          "options": [
-            "Disabled",
-            "Normal",
-            "Multiply",
-            "MultiplyLegacy",
-            "Add",
-            "AddLegacy",
-            "PremultipliedAlpha",
-            "Glass",
-            "ColoredGlass",
-            "AlphaTest",
-            "AlphaToCoverage",
-            "Screen",
-            "Min",
-            "Max",
-            "PremultipliedAlphaAuto",
-            "Custom",
-            "Darken",
-            "ColorBurn",
-            "Lighten",
-            "ColorDodge",
-            "Overlay",
-            "SoftLight",
-            "HardLight",
-            "VividLight",
-            "LinearLight",
-            "PinLight",
-            "HardMix",
-            "Diff",
-            "Exclusion",
-            "Subtract",
-            "Hue",
-            "Saturation",
-            "Color",
-            "Luminosity",
-            "Average",
-            "Negation",
-            "HardReflect",
-            "HardGlow",
-            "HardPhoenix",
-            "Realistic",
-            "Division",
-            "Bright",
-            "Forgray",
-            "NotBright",
-            "Intense"
-          ]
-        },
-        "passInfos.0.polygonOffset": {
-          "x": 0,
-          "y": 0
-        },
-        "passInfos.0.frustumCulling": {
-          "value": "Auto",
-          "type": "enum",
-          "enumType": "Editor.Assets.FrustumCullMode",
-          "options": [
-            "Auto",
-            "Extend"
-          ]
-        },
-        "passInfos.0.instanceCount": 1,
-        "passInfos.0.id": "f5e9d707-9f17-429c-8e65-1fcce89daa58",
-        "passInfos.0.type": "PassInfo",
-        "name": "CubeTealMaterial",
-        "fileMeta.id": "a1749a60-aedb-4d2b-b114-d361aae9ebcd",
-        "id": "8e7ebf00-ca81-4115-a03a-568bc0591e0a",
         "type": "Material"
       }
     },
@@ -11259,6 +11937,646 @@
       }
     },
     {
+      "id": "405d384e-9453-43b6-9f86-36d73c07c1a6",
+      "name": "Loader",
+      "type": "Material",
+      "path": "Packages/Bitmoji 3D.lsc/Loader.mat",
+      "properties": {
+        "passInfos.0.arcColor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.arcColor.label": "Arc Color",
+        "passInfos.0.arcAlpha.value": 0.8999999761581421,
+        "passInfos.0.arcAlpha.label": "Arc Alpha",
+        "passInfos.0.innerSpeed.value": 6,
+        "passInfos.0.innerSpeed.label": "Inner Rotation Speed",
+        "passInfos.0.outerSpeed.value": 4,
+        "passInfos.0.outerSpeed.label": "Outer Rotation Speed",
+        "passInfos.0.softness.value": 0.20000000298023224,
+        "passInfos.0.softness.label": "Softness",
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": true,
+        "passInfos.0.cullMode": {
+          "value": "FrontAndBack",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "PremultipliedAlphaAuto",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Extend",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "d4e618c1-ebdd-490c-be5a-d6b08f7744df",
+        "passInfos.0.type": "PassInfo",
+        "name": "Loader",
+        "fileMeta.id": "bd070e2d-a3eb-d15c-af66-4b735a86f8b6",
+        "id": "405d384e-9453-43b6-9f86-36d73c07c1a6",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "94cad239-6d55-4372-b1e0-ccc278a962bf",
+      "name": "RoomFitLit",
+      "type": "Material",
+      "path": "Materials/RoomFitLit.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.baseTex.value.id": "9bd11349-39f9-4251-a388-3dd99de287c5",
+        "passInfos.0.baseTex.label": "Base Texture",
+        "passInfos.0.metallic.value": 0,
+        "passInfos.0.metallic.label": "Metallic",
+        "passInfos.0.metallic.min": 0,
+        "passInfos.0.metallic.max": 1,
+        "passInfos.0.roughness.value": 0,
+        "passInfos.0.roughness.label": "Roughness",
+        "passInfos.0.roughness.min": 0,
+        "passInfos.0.roughness.max": 1,
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_AO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N006": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_SpecularAO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "51633f84-2747-40fb-be36-2b32e846dc5b",
+        "passInfos.0.type": "PassInfo",
+        "name": "RoomFitLit",
+        "fileMeta.id": "d0317bf8-dea2-4eef-b909-7e9551f3fab5",
+        "id": "94cad239-6d55-4372-b1e0-ccc278a962bf",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "1b4c85ca-84a0-4242-8cc6-d03d65a80078",
+      "name": "RoomFitUnlit",
+      "type": "Material",
+      "path": "Materials/RoomFitUnlit.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value": null,
+        "passInfos.0.baseTex.hidden": true,
+        "passInfos.0.baseTex.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.Port_Default_N369": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "429ff489-845e-48fc-a2a2-5d49b8a3bfe2",
+        "passInfos.0.type": "PassInfo",
+        "name": "RoomFitUnlit",
+        "fileMeta.id": "6751ed25-b520-4337-a094-7c8893befe4d",
+        "id": "1b4c85ca-84a0-4242-8cc6-d03d65a80078",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "0d2e1d60-d188-4640-bf9f-3841becac30d",
+      "name": "HandMaterial",
+      "type": "Material",
+      "path": "Packages/Leaf.lspkg/Interactors/interactor/handInput/handMesh/materials/HandMaterial.mat",
+      "properties": {
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_AO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Exponent_N007": 0.8500000238418579,
+        "passInfos.0.Port_Import_N037": 1,
+        "passInfos.0.Port_Input2_N036": 4,
+        "passInfos.0.Port_Intensity_N007": 2,
+        "passInfos.0.Port_Metallic_N006": 0,
+        "passInfos.0.Port_Opacity_N006": 1,
+        "passInfos.0.Port_Roughness_N006": 0.7400000095367432,
+        "passInfos.0.Port_SpecularAO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Value_N000": 25,
+        "passInfos.0.Port_Value_N001": -1,
+        "passInfos.0.Port_Value_N003": 4,
+        "passInfos.0.Port_Value_N008": {
+          "x": 0.2684209942817688,
+          "y": 0.6278319954872131,
+          "z": 0.9179980158805847,
+          "w": 1
+        },
+        "passInfos.0.Port_Value_N014": {
+          "x": 0.6124969720840454,
+          "y": 0.6335700154304504,
+          "z": 0.7076979875564575,
+          "w": 1
+        },
+        "passInfos.0.Port_Value_N016": {
+          "x": 0.1568319946527481,
+          "y": 0.937529981136322,
+          "z": 0.6358590126037598,
+          "w": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "9e9cd4dd-7f8c-496a-982e-89ca43ee9930",
+        "passInfos.0.type": "PassInfo",
+        "name": "HandMaterial",
+        "fileMeta.id": "f0cd60e2-4f54-4ccf-12f3-ed55dd83d1e9",
+        "id": "0d2e1d60-d188-4640-bf9f-3841becac30d",
+        "type": "Material"
+      }
+    },
+    {
       "id": "3dae0781-d80a-446b-ac7f-072a8f3fb111",
       "name": "ImageButton",
       "type": "ObjectPrefab",
@@ -11501,6 +12819,1493 @@
         "fileMeta.id": "7a6a1f35-90e0-66f2-bf27-60b4b892f1db",
         "id": "6a0089ba-f1e1-4007-8f33-27e564f26724",
         "type": "Material"
+      }
+    },
+    {
+      "id": "22334455-6677-4889-aabb-ccddee001122",
+      "name": "Image Persp",
+      "type": "Material",
+      "path": "Packages/Leaf.lspkg/Interactors/interactor/ik/visualizer/bitmoji/Image Persp.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value.id": "11223344-5566-4778-99aa-bbccdd001122",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.opacityMul.value": null,
+        "passInfos.0.opacityMul.hidden": true,
+        "passInfos.0.opacityMul.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityMul.label": "Opacity Multiplier",
+        "passInfos.0.opacityMul.min": 0,
+        "passInfos.0.opacityMul.max": 1,
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 0,
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": false,
+        "passInfos.0.depthTest": false,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "PremultipliedAlphaAuto",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "33445566-7788-499a-bbcc-ddeeff001122",
+        "passInfos.0.type": "PassInfo",
+        "name": "Image Persp",
+        "fileMeta.id": "60178ff5-c6d9-ff47-9e85-a34e3c951c2e",
+        "id": "22334455-6677-4889-aabb-ccddee001122",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "2fa285ff-4ba1-4d77-91c3-89bc8b6bd5a9",
+      "name": "SolidColor",
+      "type": "Material",
+      "path": "Packages/Leaf.lspkg/Utils/debug/SolidColor.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value.id": "11223344-5566-4778-99aa-bbccdd001122",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.opacityMul.value": null,
+        "passInfos.0.opacityMul.hidden": true,
+        "passInfos.0.opacityMul.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityMul.label": "Opacity Multiplier",
+        "passInfos.0.opacityMul.min": 0,
+        "passInfos.0.opacityMul.max": 1,
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 0,
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": false,
+        "passInfos.0.depthTest": false,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "PremultipliedAlphaAuto",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "73bef14e-476b-45be-a4a8-2dd3d87c4024",
+        "passInfos.0.type": "PassInfo",
+        "name": "SolidColor",
+        "fileMeta.id": "1a72d0a2-2d88-e1af-ec57-024fb47ae6e4",
+        "id": "2fa285ff-4ba1-4d77-91c3-89bc8b6bd5a9",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "0b963e22-299f-479f-8d12-5a6687e2731a",
+      "name": "BitmojiMaterial",
+      "type": "Material",
+      "path": "Packages/Leaf.lspkg/Interactors/interactor/ik/visualizer/bitmoji/BitmojiCharacter.lsc/BitmojiMaterial.mat",
+      "properties": {
+        "passInfos.0.ENABLE_VERTEX_COLOR_BASE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Vertex Color"
+        },
+        "passInfos.0.ENABLE_GLTF_LIGHTING": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Lighting"
+        },
+        "passInfos.0.baseColorFactor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColorFactor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture.value": null,
+        "passInfos.0.baseColorTexture.hidden": true,
+        "passInfos.0.baseColorTexture.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseColorTexture.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.emissiveFactor.value": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.emissiveFactor.label": "Emissive Factor",
+        "passInfos.0.ENABLE_EMISSIVE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture.value": null,
+        "passInfos.0.emissiveTexture.hidden": true,
+        "passInfos.0.emissiveTexture.enabledBy": "ENABLE_EMISSIVE",
+        "passInfos.0.emissiveTexture.label": "Texture",
+        "passInfos.0.ENABLE_NORMALMAP": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Map"
+        },
+        "passInfos.0.normalTextureScale.value": null,
+        "passInfos.0.normalTextureScale.hidden": true,
+        "passInfos.0.normalTextureScale.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTextureScale.label": "Scale",
+        "passInfos.0.normalTextureScale.min": 0,
+        "passInfos.0.normalTextureScale.max": 1,
+        "passInfos.0.normalTexture.value": null,
+        "passInfos.0.normalTexture.hidden": true,
+        "passInfos.0.normalTexture.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTexture.label": "Texture",
+        "passInfos.0.metallicFactor.value": 0,
+        "passInfos.0.metallicFactor.label": "Metallic",
+        "passInfos.0.metallicFactor.min": 0,
+        "passInfos.0.metallicFactor.max": 1,
+        "passInfos.0.roughnessFactor.value": 0,
+        "passInfos.0.roughnessFactor.label": "Roughness",
+        "passInfos.0.roughnessFactor.min": 0,
+        "passInfos.0.roughnessFactor.max": 1,
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Texture"
+        },
+        "passInfos.0.occlusionTextureStrength.value": null,
+        "passInfos.0.occlusionTextureStrength.hidden": true,
+        "passInfos.0.occlusionTextureStrength.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEX",
+        "passInfos.0.occlusionTextureStrength.label": "Occlusion Strength",
+        "passInfos.0.occlusionTextureStrength.min": 0,
+        "passInfos.0.occlusionTextureStrength.max": 1,
+        "passInfos.0.metallicRoughnessTexture.value": null,
+        "passInfos.0.metallicRoughnessTexture.hidden": true,
+        "passInfos.0.metallicRoughnessTexture.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEX",
+        "passInfos.0.metallicRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_TRANSMISSION": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission"
+        },
+        "passInfos.0.screenTexture.value.id": "872f0f4a-4987-49dc-9107-bbdd51d69cf1",
+        "passInfos.0.screenTexture.label": "Screen Texture",
+        "passInfos.0.transmissionFactor.value": 0,
+        "passInfos.0.transmissionFactor.label": "Factor",
+        "passInfos.0.transmissionFactor.min": 0,
+        "passInfos.0.transmissionFactor.max": 1,
+        "passInfos.0.ENABLE_TRANSMISSION_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture.value": null,
+        "passInfos.0.transmissionTexture.hidden": true,
+        "passInfos.0.transmissionTexture.enabledBy": "ENABLE_TRANSMISSION_TEX",
+        "passInfos.0.transmissionTexture.label": "Texture",
+        "passInfos.0.ENABLE_SHEEN": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen"
+        },
+        "passInfos.0.sheenColorFactor.value": null,
+        "passInfos.0.sheenColorFactor.hidden": true,
+        "passInfos.0.sheenColorFactor.enabledBy": "ENABLE_SHEEN",
+        "passInfos.0.sheenColorFactor.label": "Color",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Color Texture"
+        },
+        "passInfos.0.sheenColorTexture.value": null,
+        "passInfos.0.sheenColorTexture.hidden": true,
+        "passInfos.0.sheenColorTexture.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenColorTexture.label": "Texture",
+        "passInfos.0.sheenRoughnessFactor.value": null,
+        "passInfos.0.sheenRoughnessFactor.hidden": true,
+        "passInfos.0.sheenRoughnessFactor.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.sheenRoughnessFactor.min": 0,
+        "passInfos.0.sheenRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture.value": null,
+        "passInfos.0.sheenRoughnessTexture.hidden": true,
+        "passInfos.0.sheenRoughnessTexture.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEX",
+        "passInfos.0.sheenRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat"
+        },
+        "passInfos.0.clearcoatFactor.value": null,
+        "passInfos.0.clearcoatFactor.hidden": true,
+        "passInfos.0.clearcoatFactor.enabledBy": "ENABLE_CLEARCOAT",
+        "passInfos.0.clearcoatFactor.label": "Factor",
+        "passInfos.0.clearcoatFactor.min": 0,
+        "passInfos.0.clearcoatFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat Texture"
+        },
+        "passInfos.0.clearcoatTexture.value": null,
+        "passInfos.0.clearcoatTexture.hidden": true,
+        "passInfos.0.clearcoatTexture.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatTexture.label": "Texture",
+        "passInfos.0.clearcoatRoughnessFactor.value": null,
+        "passInfos.0.clearcoatRoughnessFactor.hidden": true,
+        "passInfos.0.clearcoatRoughnessFactor.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.clearcoatRoughnessFactor.min": 0,
+        "passInfos.0.clearcoatRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture.value": null,
+        "passInfos.0.clearcoatRoughnessTexture.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEX",
+        "passInfos.0.clearcoatRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal"
+        },
+        "passInfos.0.clearcoatNormalTexture.value": null,
+        "passInfos.0.clearcoatNormalTexture.hidden": true,
+        "passInfos.0.clearcoatNormalTexture.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEX",
+        "passInfos.0.clearcoatNormalTexture.label": "Texture",
+        "passInfos.0.ENABLE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Texture Transform"
+        },
+        "passInfos.0.ENABLE_BASE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture_offset.value": null,
+        "passInfos.0.baseColorTexture_offset.hidden": true,
+        "passInfos.0.baseColorTexture_offset.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_offset.label": "Offset",
+        "passInfos.0.baseColorTexture_scale.value": null,
+        "passInfos.0.baseColorTexture_scale.hidden": true,
+        "passInfos.0.baseColorTexture_scale.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_scale.label": "Scale",
+        "passInfos.0.baseColorTexture_rotation.value": null,
+        "passInfos.0.baseColorTexture_rotation.hidden": true,
+        "passInfos.0.baseColorTexture_rotation.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_EMISSIVE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture_offset.value": null,
+        "passInfos.0.emissiveTexture_offset.hidden": true,
+        "passInfos.0.emissiveTexture_offset.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_offset.label": "Offset",
+        "passInfos.0.emissiveTexture_scale.value": null,
+        "passInfos.0.emissiveTexture_scale.hidden": true,
+        "passInfos.0.emissiveTexture_scale.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_scale.label": "Scale",
+        "passInfos.0.emissiveTexture_rotation.value": null,
+        "passInfos.0.emissiveTexture_rotation.hidden": true,
+        "passInfos.0.emissiveTexture_rotation.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Texture"
+        },
+        "passInfos.0.normalTexture_offset.value": null,
+        "passInfos.0.normalTexture_offset.hidden": true,
+        "passInfos.0.normalTexture_offset.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_offset.label": "Offset",
+        "passInfos.0.normalTexture_scale.value": null,
+        "passInfos.0.normalTexture_scale.hidden": true,
+        "passInfos.0.normalTexture_scale.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_scale.label": "Scale",
+        "passInfos.0.normalTexture_rotation.value": null,
+        "passInfos.0.normalTexture_rotation.hidden": true,
+        "passInfos.0.normalTexture_rotation.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic Roughness Texture"
+        },
+        "passInfos.0.metallicRoughnessTexture_offset.value": null,
+        "passInfos.0.metallicRoughnessTexture_offset.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_offset.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.metallicRoughnessTexture_scale.value": null,
+        "passInfos.0.metallicRoughnessTexture_scale.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_scale.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.metallicRoughnessTexture_rotation.value": null,
+        "passInfos.0.metallicRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_rotation.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_TRANSMISSION_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture_offset.value": null,
+        "passInfos.0.transmissionTexture_offset.hidden": true,
+        "passInfos.0.transmissionTexture_offset.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_offset.label": "Offset",
+        "passInfos.0.transmissionTexture_scale.value": null,
+        "passInfos.0.transmissionTexture_scale.hidden": true,
+        "passInfos.0.transmissionTexture_scale.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_scale.label": "Scale",
+        "passInfos.0.transmissionTexture_rotation.value": null,
+        "passInfos.0.transmissionTexture_rotation.hidden": true,
+        "passInfos.0.transmissionTexture_rotation.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Color Texture"
+        },
+        "passInfos.0.sheenColorTexture_offset.value": null,
+        "passInfos.0.sheenColorTexture_offset.hidden": true,
+        "passInfos.0.sheenColorTexture_offset.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_offset.label": "Offset",
+        "passInfos.0.sheenColorTexture_scale.value": null,
+        "passInfos.0.sheenColorTexture_scale.hidden": true,
+        "passInfos.0.sheenColorTexture_scale.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_scale.label": "Scale",
+        "passInfos.0.sheenColorTexture_rotation.value": null,
+        "passInfos.0.sheenColorTexture_rotation.hidden": true,
+        "passInfos.0.sheenColorTexture_rotation.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture_offset.value": null,
+        "passInfos.0.sheenRoughnessTexture_offset.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_offset.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.sheenRoughnessTexture_scale.value": null,
+        "passInfos.0.sheenRoughnessTexture_scale.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_scale.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.sheenRoughnessTexture_rotation.value": null,
+        "passInfos.0.sheenRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_rotation.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Texture"
+        },
+        "passInfos.0.clearcoatTexture_offset.value": null,
+        "passInfos.0.clearcoatTexture_offset.hidden": true,
+        "passInfos.0.clearcoatTexture_offset.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatTexture_scale.value": null,
+        "passInfos.0.clearcoatTexture_scale.hidden": true,
+        "passInfos.0.clearcoatTexture_scale.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatTexture_rotation.value": null,
+        "passInfos.0.clearcoatTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Normal Texture"
+        },
+        "passInfos.0.clearcoatNormalTexture_offset.value": null,
+        "passInfos.0.clearcoatNormalTexture_offset.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_offset.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatNormalTexture_scale.value": null,
+        "passInfos.0.clearcoatNormalTexture_scale.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_scale.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatNormalTexture_rotation.value": null,
+        "passInfos.0.clearcoatNormalTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture_offset.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_offset.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_offset.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatRoughnessTexture_scale.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_scale.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_scale.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Albedo_N405": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_Emissive_N405": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_Metallic_N405": 0,
+        "passInfos.0.Port_Opacity_N405": 1,
+        "passInfos.0.Port_SpecularAO_N036": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_SpecularAO_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "954f429e-12af-4b91-a864-ec91f848575c",
+        "passInfos.0.type": "PassInfo",
+        "name": "BitmojiMaterial",
+        "fileMeta.id": "377bb240-5ec4-fd2f-6b58-3be4f7bd3853",
+        "id": "0b963e22-299f-479f-8d12-5a6687e2731a",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "40b3147b-e211-4919-9ba0-bedd05c60132",
+      "name": "GLTF",
+      "type": "Material",
+      "path": "Packages/Bitmoji 3D.lsc/GLTF.mat",
+      "properties": {
+        "passInfos.0.ENABLE_VERTEX_COLOR_BASE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Vertex Color"
+        },
+        "passInfos.0.ENABLE_GLTF_LIGHTING": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Enable Lighting"
+        },
+        "passInfos.0.baseColorFactor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColorFactor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture.value": null,
+        "passInfos.0.baseColorTexture.hidden": true,
+        "passInfos.0.baseColorTexture.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseColorTexture.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.emissiveFactor.value": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.emissiveFactor.label": "Emissive Factor",
+        "passInfos.0.ENABLE_EMISSIVE": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture.value": null,
+        "passInfos.0.emissiveTexture.hidden": true,
+        "passInfos.0.emissiveTexture.enabledBy": "ENABLE_EMISSIVE",
+        "passInfos.0.emissiveTexture.label": "Texture",
+        "passInfos.0.ENABLE_NORMALMAP": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Map"
+        },
+        "passInfos.0.normalTextureScale.value": null,
+        "passInfos.0.normalTextureScale.hidden": true,
+        "passInfos.0.normalTextureScale.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTextureScale.label": "Scale",
+        "passInfos.0.normalTextureScale.min": 0,
+        "passInfos.0.normalTextureScale.max": 1,
+        "passInfos.0.normalTexture.value": null,
+        "passInfos.0.normalTexture.hidden": true,
+        "passInfos.0.normalTexture.enabledBy": "ENABLE_NORMALMAP",
+        "passInfos.0.normalTexture.label": "Texture",
+        "passInfos.0.metallicFactor.value": 0,
+        "passInfos.0.metallicFactor.label": "Metallic",
+        "passInfos.0.metallicFactor.min": 0,
+        "passInfos.0.metallicFactor.max": 1,
+        "passInfos.0.roughnessFactor.value": 0,
+        "passInfos.0.roughnessFactor.label": "Roughness",
+        "passInfos.0.roughnessFactor.min": 0,
+        "passInfos.0.roughnessFactor.max": 1,
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic-Roughness Texture"
+        },
+        "passInfos.0.occlusionTextureStrength.value": null,
+        "passInfos.0.occlusionTextureStrength.hidden": true,
+        "passInfos.0.occlusionTextureStrength.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEX",
+        "passInfos.0.occlusionTextureStrength.label": "Occlusion Strength",
+        "passInfos.0.occlusionTextureStrength.min": 0,
+        "passInfos.0.occlusionTextureStrength.max": 1,
+        "passInfos.0.metallicRoughnessTexture.value": null,
+        "passInfos.0.metallicRoughnessTexture.hidden": true,
+        "passInfos.0.metallicRoughnessTexture.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEX",
+        "passInfos.0.metallicRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_TRANSMISSION": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission"
+        },
+        "passInfos.0.screenTexture.value.id": "872f0f4a-4987-49dc-9107-bbdd51d69cf1",
+        "passInfos.0.screenTexture.label": "Screen Texture",
+        "passInfos.0.transmissionFactor.value": 0,
+        "passInfos.0.transmissionFactor.label": "Factor",
+        "passInfos.0.transmissionFactor.min": 0,
+        "passInfos.0.transmissionFactor.max": 1,
+        "passInfos.0.ENABLE_TRANSMISSION_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture.value": null,
+        "passInfos.0.transmissionTexture.hidden": true,
+        "passInfos.0.transmissionTexture.enabledBy": "ENABLE_TRANSMISSION_TEX",
+        "passInfos.0.transmissionTexture.label": "Texture",
+        "passInfos.0.ENABLE_SHEEN": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen"
+        },
+        "passInfos.0.sheenColorFactor.value": null,
+        "passInfos.0.sheenColorFactor.hidden": true,
+        "passInfos.0.sheenColorFactor.enabledBy": "ENABLE_SHEEN",
+        "passInfos.0.sheenColorFactor.label": "Color",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Color Texture"
+        },
+        "passInfos.0.sheenColorTexture.value": null,
+        "passInfos.0.sheenColorTexture.hidden": true,
+        "passInfos.0.sheenColorTexture.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenColorTexture.label": "Texture",
+        "passInfos.0.sheenRoughnessFactor.value": null,
+        "passInfos.0.sheenRoughnessFactor.hidden": true,
+        "passInfos.0.sheenRoughnessFactor.enabledBy": "ENABLE_SHEEN_COLOR_TEX",
+        "passInfos.0.sheenRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.sheenRoughnessFactor.min": 0,
+        "passInfos.0.sheenRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture.value": null,
+        "passInfos.0.sheenRoughnessTexture.hidden": true,
+        "passInfos.0.sheenRoughnessTexture.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEX",
+        "passInfos.0.sheenRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat"
+        },
+        "passInfos.0.clearcoatFactor.value": null,
+        "passInfos.0.clearcoatFactor.hidden": true,
+        "passInfos.0.clearcoatFactor.enabledBy": "ENABLE_CLEARCOAT",
+        "passInfos.0.clearcoatFactor.label": "Factor",
+        "passInfos.0.clearcoatFactor.min": 0,
+        "passInfos.0.clearcoatFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clear Coat Texture"
+        },
+        "passInfos.0.clearcoatTexture.value": null,
+        "passInfos.0.clearcoatTexture.hidden": true,
+        "passInfos.0.clearcoatTexture.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatTexture.label": "Texture",
+        "passInfos.0.clearcoatRoughnessFactor.value": null,
+        "passInfos.0.clearcoatRoughnessFactor.hidden": true,
+        "passInfos.0.clearcoatRoughnessFactor.enabledBy": "ENABLE_CLEARCOAT_TEX",
+        "passInfos.0.clearcoatRoughnessFactor.label": "Roughness Factor",
+        "passInfos.0.clearcoatRoughnessFactor.min": 0,
+        "passInfos.0.clearcoatRoughnessFactor.max": 1,
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture.value": null,
+        "passInfos.0.clearcoatRoughnessTexture.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEX",
+        "passInfos.0.clearcoatRoughnessTexture.label": "Texture",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal"
+        },
+        "passInfos.0.clearcoatNormalTexture.value": null,
+        "passInfos.0.clearcoatNormalTexture.hidden": true,
+        "passInfos.0.clearcoatNormalTexture.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEX",
+        "passInfos.0.clearcoatNormalTexture.label": "Texture",
+        "passInfos.0.ENABLE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Texture Transform"
+        },
+        "passInfos.0.ENABLE_BASE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseColorTexture_offset.value": null,
+        "passInfos.0.baseColorTexture_offset.hidden": true,
+        "passInfos.0.baseColorTexture_offset.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_offset.label": "Offset",
+        "passInfos.0.baseColorTexture_scale.value": null,
+        "passInfos.0.baseColorTexture_scale.hidden": true,
+        "passInfos.0.baseColorTexture_scale.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_scale.label": "Scale",
+        "passInfos.0.baseColorTexture_rotation.value": null,
+        "passInfos.0.baseColorTexture_rotation.hidden": true,
+        "passInfos.0.baseColorTexture_rotation.enabledBy": "ENABLE_BASE_TEXTURE_TRANSFORM",
+        "passInfos.0.baseColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_EMISSIVE_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Emissive Texture"
+        },
+        "passInfos.0.emissiveTexture_offset.value": null,
+        "passInfos.0.emissiveTexture_offset.hidden": true,
+        "passInfos.0.emissiveTexture_offset.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_offset.label": "Offset",
+        "passInfos.0.emissiveTexture_scale.value": null,
+        "passInfos.0.emissiveTexture_scale.hidden": true,
+        "passInfos.0.emissiveTexture_scale.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_scale.label": "Scale",
+        "passInfos.0.emissiveTexture_rotation.value": null,
+        "passInfos.0.emissiveTexture_rotation.hidden": true,
+        "passInfos.0.emissiveTexture_rotation.enabledBy": "ENABLE_EMISSIVE_TEXTURE_TRANSFORM",
+        "passInfos.0.emissiveTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Normal Texture"
+        },
+        "passInfos.0.normalTexture_offset.value": null,
+        "passInfos.0.normalTexture_offset.hidden": true,
+        "passInfos.0.normalTexture_offset.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_offset.label": "Offset",
+        "passInfos.0.normalTexture_scale.value": null,
+        "passInfos.0.normalTexture_scale.hidden": true,
+        "passInfos.0.normalTexture_scale.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_scale.label": "Scale",
+        "passInfos.0.normalTexture_rotation.value": null,
+        "passInfos.0.normalTexture_rotation.hidden": true,
+        "passInfos.0.normalTexture_rotation.enabledBy": "ENABLE_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.normalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Metallic Roughness Texture"
+        },
+        "passInfos.0.metallicRoughnessTexture_offset.value": null,
+        "passInfos.0.metallicRoughnessTexture_offset.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_offset.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.metallicRoughnessTexture_scale.value": null,
+        "passInfos.0.metallicRoughnessTexture_scale.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_scale.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.metallicRoughnessTexture_rotation.value": null,
+        "passInfos.0.metallicRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.metallicRoughnessTexture_rotation.enabledBy": "ENABLE_METALLIC_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.metallicRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_TRANSMISSION_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transmission Texture"
+        },
+        "passInfos.0.transmissionTexture_offset.value": null,
+        "passInfos.0.transmissionTexture_offset.hidden": true,
+        "passInfos.0.transmissionTexture_offset.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_offset.label": "Offset",
+        "passInfos.0.transmissionTexture_scale.value": null,
+        "passInfos.0.transmissionTexture_scale.hidden": true,
+        "passInfos.0.transmissionTexture_scale.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_scale.label": "Scale",
+        "passInfos.0.transmissionTexture_rotation.value": null,
+        "passInfos.0.transmissionTexture_rotation.hidden": true,
+        "passInfos.0.transmissionTexture_rotation.enabledBy": "ENABLE_TRANSMISSION_TEXTURE_TRANSFORM",
+        "passInfos.0.transmissionTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Color Texture"
+        },
+        "passInfos.0.sheenColorTexture_offset.value": null,
+        "passInfos.0.sheenColorTexture_offset.hidden": true,
+        "passInfos.0.sheenColorTexture_offset.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_offset.label": "Offset",
+        "passInfos.0.sheenColorTexture_scale.value": null,
+        "passInfos.0.sheenColorTexture_scale.hidden": true,
+        "passInfos.0.sheenColorTexture_scale.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_scale.label": "Scale",
+        "passInfos.0.sheenColorTexture_rotation.value": null,
+        "passInfos.0.sheenColorTexture_rotation.hidden": true,
+        "passInfos.0.sheenColorTexture_rotation.enabledBy": "ENABLE_SHEEN_COLOR_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenColorTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Sheen Roughness Texture"
+        },
+        "passInfos.0.sheenRoughnessTexture_offset.value": null,
+        "passInfos.0.sheenRoughnessTexture_offset.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_offset.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.sheenRoughnessTexture_scale.value": null,
+        "passInfos.0.sheenRoughnessTexture_scale.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_scale.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.sheenRoughnessTexture_rotation.value": null,
+        "passInfos.0.sheenRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.sheenRoughnessTexture_rotation.enabledBy": "ENABLE_SHEEN_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.sheenRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Texture"
+        },
+        "passInfos.0.clearcoatTexture_offset.value": null,
+        "passInfos.0.clearcoatTexture_offset.hidden": true,
+        "passInfos.0.clearcoatTexture_offset.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatTexture_scale.value": null,
+        "passInfos.0.clearcoatTexture_scale.hidden": true,
+        "passInfos.0.clearcoatTexture_scale.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatTexture_rotation.value": null,
+        "passInfos.0.clearcoatTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Normal Texture"
+        },
+        "passInfos.0.clearcoatNormalTexture_offset.value": null,
+        "passInfos.0.clearcoatNormalTexture_offset.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_offset.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatNormalTexture_scale.value": null,
+        "passInfos.0.clearcoatNormalTexture_scale.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_scale.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatNormalTexture_rotation.value": null,
+        "passInfos.0.clearcoatNormalTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatNormalTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_NORMAL_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatNormalTexture_rotation.label": "Rotation",
+        "passInfos.0.ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Clearcoat Roughness Texture"
+        },
+        "passInfos.0.clearcoatRoughnessTexture_offset.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_offset.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_offset.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_offset.label": "Offset",
+        "passInfos.0.clearcoatRoughnessTexture_scale.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_scale.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_scale.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_scale.label": "Scale",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.value": null,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.hidden": true,
+        "passInfos.0.clearcoatRoughnessTexture_rotation.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.clearcoatRoughnessTexture_rotation.label": "Rotation",
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "ENABLE_CLEARCOAT_ROUGHNESS_TEXTURE_TRANSFORM",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Albedo_N405": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_Emissive_N405": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_Metallic_N405": 0,
+        "passInfos.0.Port_Opacity_N405": 1,
+        "passInfos.0.Port_SpecularAO_N036": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_SpecularAO_N405": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "b1388906-8649-416b-aeeb-2a33f5cc3687",
+        "passInfos.0.type": "PassInfo",
+        "name": "GLTF",
+        "fileMeta.id": "dc4f7c63-677d-c323-ba75-066f06727e01",
+        "id": "40b3147b-e211-4919-9ba0-bedd05c60132",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "3642f110-de5e-4fcd-9cf9-bdd9164d8108",
+      "name": "Loader",
+      "type": "ObjectPrefab",
+      "path": "Packages/Bitmoji 3D.lsc/Loader.prefab",
+      "properties": {
+        "prefabInstances.0": "@id:e9468ba6-aeb2-4a2f-b7c8-b263708d0a5e (Loader)",
+        "lazyLoading": false,
+        "retainAssets": true,
+        "sceneObjects.0": "@id:e9468ba6-aeb2-4a2f-b7c8-b263708d0a5e (Loader)",
+        "rootSceneObjects.0": "@id:e9468ba6-aeb2-4a2f-b7c8-b263708d0a5e (Loader)",
+        "name": "Loader",
+        "fileMeta.id": "113332ea-59e6-ac20-35c8-21639b4af176",
+        "id": "3642f110-de5e-4fcd-9cf9-bdd9164d8108",
+        "type": "ObjectPrefab"
       }
     }
   ]

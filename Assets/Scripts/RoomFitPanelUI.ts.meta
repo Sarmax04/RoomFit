@@ -1,0 +1,65 @@
+- !<AssetImportMetadata/ea51cb52-c637-466b-be87-bea6cc10de38>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 7cf64202-5b2a-4cae-97fb-53c5d960cb47
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 7cf64202-5b2a-4cae-97fb-53c5d960cb47
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> f962770b-e138-46ec-9155-7126d8584682
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/f962770b-e138-46ec-9155-7126d8584682>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: c1d89d4f-b0ed-4995-aeb0-d04b72d5410d
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    arrowColor: false
+    buttonGap: false
+    buttonHeight: false
+    buttonWidth: false
+    iconSize: false
+    padding: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - buttonWidth: 6.400000
+      buttonHeight: !<float> 6.000000
+      buttonGap: !<float> 2.000000
+      padding: 1.600000
+      iconSize: 2.400000
+      arrowColor: !<Vec4> {x: 1.000000, y: 0.820000, z: 0.450000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">RoomFitPanelUI – control panel view</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float buttonWidth = 6.4 {"hint":"Button width in cm (brief: about 6 cm)", "widget":"slider", "min":4, "max":10, "step":0.1}'
+    - '// @input float buttonHeight = 6 {"hint":"Button height in cm", "widget":"slider", "min":4, "max":10, "step":0.1}'
+    - '// @input float buttonGap = 2 {"hint":"Gap between buttons in cm (brief: about 2 cm)", "widget":"slider", "min":0.5, "max":4, "step":0.1}'
+    - '// @input float padding = 1.6 {"hint":"Panel padding in cm", "widget":"slider", "min":0.5, "max":4, "step":0.1}'
+    - '// @input float iconSize = 2.4 {"hint":"Icon size inside each button, in cm", "widget":"slider", "min":1, "max":4, "step":0.1}'
+    - "// @input vec4 arrowColor = \"{1.0, 0.82, 0.45, 1.0}\" {\"hint\":\"Color of the 'piece is behind you' arrow\", \"widget\":\"color\"}"
+    - '// @ui {"widget":"group_end"}'

@@ -1,0 +1,62 @@
+- !<AssetImportMetadata/fc2653d2-4c11-4a4d-8c6a-81e770090505>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> b8783960-1422-4f5c-9392-2a9f3a24feeb
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> b8783960-1422-4f5c-9392-2a9f3a24feeb
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 5b3e1f90-0d42-481e-a50f-cf17259811e6
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/5b3e1f90-0d42-481e-a50f-cf17259811e6>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: b73b31fe-762a-49ef-8285-a250597735db
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    backingColor: false
+    gapColor: false
+    gapScale: false
+    labelColor: false
+    labelScale: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - labelScale: 4.500000
+      gapScale: 5.500000
+      labelColor: !<Vec4> {x: 0.960000, y: 0.960000, z: 0.960000, w: 1.000000}
+      backingColor: !<Vec4> {x: 0.420000, y: 0.440000, z: 0.480000, w: 1.000000}
+      gapColor: !<Vec4> {x: 1.000000, y: 0.550000, z: 0.500000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">RoomFitLabelsUI – dimension + gap labels</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float labelScale = 4.5 {"hint":"Uniform scale for the dimension labels (4.5 ≈ 8 cm tall digits)", "widget":"slider", "min":1, "max":8, "step":0.1}'
+    - '// @input float gapScale = 5.5 {"hint":"Uniform scale for the floor gap number", "widget":"slider", "min":1, "max":10, "step":0.1}'
+    - '// @input vec4 labelColor = "{0.96, 0.96, 0.96, 1.0}" {"hint":"Dimension label text color (keep light — dark renders transparent on Specs)", "widget":"color"}'
+    - '// @input vec4 backingColor = "{0.42, 0.44, 0.48, 1.0}" {"hint":"Mid-tone backing plate color behind the dimension text", "widget":"color"}'
+    - '// @input vec4 gapColor = "{1.0, 0.55, 0.5, 1.0}" {"hint":"Gap number color", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

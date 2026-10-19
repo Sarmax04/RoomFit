@@ -4,6 +4,10 @@
     - !<own> 00000000-0000-0065-0000-000000000064
     - !<own> 0005641c-028d-459a-0000-000000014b4d
     - !<own> f5d74682-203a-4970-81ea-9fa7b88c96bb
+    - !<own> 8e3a9a80-ea77-4e78-b618-e6547f0905bf
+    - !<own> ad9aba06-e6ae-4aae-a1e2-ed5e787519db
+    - !<own> e857a34f-2ecc-4cbf-a87f-ce0a56cc711c
+    - !<own> c3c118f5-c2c4-44c7-9863-ff498b18974b
   layers: !<Layers/267ee9a7-aff2-4f9d-9a49-f71214747d03>
     userLayers:
       - id: 1
@@ -578,6 +582,21 @@
     - !<own> 33c3b818-8a2f-4298-8659-2ea691615666
   Components:
     []
+- !<SceneObject/23951e6e-e4be-4a1c-bd46-027c3d5a273e>
+  PrefabRemaps:
+    []
+  Name: Doorway
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 30.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
 - !<SceneObject/241be3d8-6f45-47d7-8b71-53778e375dc2>
   PrefabRemaps:
     []
@@ -593,6 +612,59 @@
     []
   Components:
     []
+- !<ScriptComponent/26006b78-6ef2-4474-bd4f-c32593b049dc>
+  PrefabRemaps:
+    []
+  Name: RoomFitController
+  Enabled: true
+  ScriptAsset: !<reference> eac29fc6-7fc2-41f4-997b-e36aa5343cf0
+  ScriptInputsDefault:
+    roomWidth: true
+    roomDepth: true
+    wallHeight: true
+    startInsetCm: true
+    doorWidth: true
+    doorHeight: true
+    wallColor: true
+    floorColor: true
+    clearanceCm: true
+    rotateStepDeg: true
+    gapFadeSeconds: true
+    clearColor: true
+    tooCloseColor: true
+    outlineWidthCm: true
+    debugColliders: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      room: !<reference.SceneObject> ad9aba06-e6ae-4aae-a1e2-ed5e787519db
+      doorway: !<reference.SceneObject> 23951e6e-e4be-4a1c-bd46-027c3d5a273e
+      coffeeTable: !<reference.SceneObject> f07ead09-bd04-4aef-9aae-6fc3a3453f1d
+      pieceRoot: !<reference.SceneObject> 9ea37b61-0825-4c69-a65d-51e0fede99b0
+      outlineRoot: !<reference.SceneObject> 9217624d-1781-49e9-8bcb-4f906543e0cf
+      panelUI: !<MappingBased.AssignableType_1> 9d01d615-0736-430c-9cb8-d9b89eaf0402
+      labelsUI: !<MappingBased.AssignableType_2> 38e10e1c-0cba-4e00-8fa5-3d023d42af07
+      litMaterial: !<reference.Material> 94cad239-6d55-4372-b1e0-ccc278a962bf
+      unlitMaterial: !<reference.Material> 1b4c85ca-84a0-4242-8cc6-d03d65a80078
+      roomWidth: !<float> 400.000000
+      roomDepth: !<float> 500.000000
+      wallHeight: !<float> 250.000000
+      startInsetCm: !<float> 30.000000
+      doorWidth: !<float> 90.000000
+      doorHeight: !<float> 200.000000
+      wallColor: !<Vec4> {x: 0.920000, y: 0.910000, z: 0.880000, w: 1.000000}
+      floorColor: !<Vec4> {x: 0.720000, y: 0.700000, z: 0.660000, w: 1.000000}
+      clearanceCm: !<float> 80.000000
+      rotateStepDeg: !<float> 15.000000
+      gapFadeSeconds: !<float> 1.000000
+      clearColor: !<Vec4> {x: 0.350000, y: 0.850000, z: 0.450000, w: 1.000000}
+      tooCloseColor: !<Vec4> {x: 1.000000, y: 0.300000, z: 0.250000, w: 1.000000}
+      outlineWidthCm: 1.500000
+      debugColliders: false
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/264571d0-f879-411b-8deb-ff6d9921317f>
   PrefabRemaps:
     []
@@ -796,6 +868,30 @@
     - !<own> 4051028a-c608-4a97-b3d5-1a3912a7c007
   Components:
     []
+- !<ScriptComponent/38e10e1c-0cba-4e00-8fa5-3d023d42af07>
+  PrefabRemaps:
+    []
+  Name: RoomFitLabelsUI
+  Enabled: true
+  ScriptAsset: !<reference> b8783960-1422-4f5c-9392-2a9f3a24feeb
+  ScriptInputsDefault:
+    labelScale: true
+    gapScale: true
+    labelColor: true
+    backingColor: true
+    gapColor: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      labelScale: 4.500000
+      gapScale: 5.500000
+      labelColor: !<Vec4> {x: 0.960000, y: 0.960000, z: 0.960000, w: 1.000000}
+      backingColor: !<Vec4> {x: 0.420000, y: 0.440000, z: 0.480000, w: 1.000000}
+      gapColor: !<Vec4> {x: 1.000000, y: 0.550000, z: 0.500000, w: 1.000000}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/3a794764-c758-4d72-9d89-bf3ed978113f>
   PrefabRemaps:
     []
@@ -1246,6 +1342,21 @@
     - !<own> 879ce45b-bd5e-40ff-a3fe-d821523427e4
   Components:
     - !<own> 64f27597-c99d-4c59-8a08-05459cc2258d
+- !<SceneObject/73ed8e46-5c4f-4bb2-b20f-49004b1461c8>
+  PrefabRemaps:
+    []
+  Name: WorldLabels
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 38e10e1c-0cba-4e00-8fa5-3d023d42af07
 - !<SceneObject/74d13517-1dbf-42e6-b536-27afc4909c65>
   PrefabRemaps:
     []
@@ -1531,6 +1642,21 @@
     - !<own> b859e31c-4c76-46bd-bd6a-042228e52728
   Components:
     []
+- !<SceneObject/8e3a9a80-ea77-4e78-b618-e6547f0905bf>
+  PrefabRemaps:
+    []
+  Name: RoomFitController
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 26006b78-6ef2-4474-bd4f-c32593b049dc
 - !<SceneObject/8fe2a532-9bf3-4cde-b598-04ce5470718d>
   PrefabRemaps:
     []
@@ -1544,6 +1670,21 @@
     HasSegmentScaleCompensation: false
   Children:
     - !<own> 8cb3dd13-6ebf-41e6-9a23-94a69dd96f87
+  Components:
+    []
+- !<SceneObject/9217624d-1781-49e9-8bcb-4f906543e0cf>
+  PrefabRemaps:
+    []
+  Name: FloorOutline
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: -220.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
   Components:
     []
 - !<SceneObject/9468c53c-f76f-49b7-8a49-b5ec6af1c5a3>
@@ -1608,6 +1749,32 @@
   ScriptTypes:
     "":
       {}
+- !<ScriptComponent/9d01d615-0736-430c-9cb8-d9b89eaf0402>
+  PrefabRemaps:
+    []
+  Name: RoomFitPanelUI
+  Enabled: true
+  ScriptAsset: !<reference> 7cf64202-5b2a-4cae-97fb-53c5d960cb47
+  ScriptInputsDefault:
+    buttonWidth: true
+    buttonHeight: true
+    buttonGap: true
+    padding: true
+    iconSize: true
+    arrowColor: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      buttonWidth: 6.400000
+      buttonHeight: !<float> 6.000000
+      buttonGap: !<float> 2.000000
+      padding: 1.600000
+      iconSize: 2.400000
+      arrowColor: !<Vec4> {x: 1.000000, y: 0.820000, z: 0.450000, w: 1.000000}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/9e373d68-993f-4c8f-83a0-6644f1d9fefd>
   PrefabRemaps:
     []
@@ -1621,6 +1788,21 @@
     HasSegmentScaleCompensation: false
   Children:
     - !<own> 23861703-e5d4-4885-be1b-c3358c1877a4
+  Components:
+    []
+- !<SceneObject/9ea37b61-0825-4c69-a65d-51e0fede99b0>
+  PrefabRemaps:
+    []
+  Name: Piece
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: -220.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
   Components:
     []
 - !<SceneObject/9eeb9f24-5cbc-47c2-83e9-12feb9eb69a6>
@@ -1777,6 +1959,41 @@
     - !<own> f6687ab7-52ac-408d-a892-8a9559125450
   Components:
     []
+- !<SceneObject/ad9aba06-e6ae-4aae-a1e2-ed5e787519db>
+  PrefabRemaps:
+    []
+  Name: VirtualRoom
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: -160.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 23951e6e-e4be-4a1c-bd46-027c3d5a273e
+    - !<own> f07ead09-bd04-4aef-9aae-6fc3a3453f1d
+    - !<own> 9ea37b61-0825-4c69-a65d-51e0fede99b0
+    - !<own> 9217624d-1781-49e9-8bcb-4f906543e0cf
+    - !<own> 73ed8e46-5c4f-4bb2-b20f-49004b1461c8
+  Components:
+    []
+- !<ScriptComponent/afaecd3a-38d8-4a6f-8535-39159383d9a2>
+  PrefabRemaps:
+    []
+  Name: AgentInspectScript
+  Enabled: true
+  ScriptAsset: !<reference> 0b25079c-f5bf-4c6d-96c4-f43b89dfa213
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      {}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/b22d97e6-4c06-4135-af29-d26adb2b9d86>
   PrefabRemaps:
     []
@@ -1837,6 +2054,28 @@
     - !<own> fcc185fc-4e88-4e9e-9c71-40bd83b1b0ed
   Components:
     []
+- !<ScriptComponent/b718a4d3-a1c7-4446-b874-16899fec0b23>
+  PrefabRemaps:
+    []
+  Name: RoomFitLazyFollow
+  Enabled: true
+  ScriptAsset: !<reference> 61b4ae99-fa56-4d57-ace7-e78781fd7151
+  ScriptInputsDefault:
+    distanceCm: true
+    dropCm: true
+    followSpeed: true
+    deadZoneCm: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      distanceCm: !<float> 100.000000
+      dropCm: !<float> 20.000000
+      followSpeed: 2.500000
+      deadZoneCm: !<float> 8.000000
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/b786dabc-29e4-4cfa-8a84-f39604ffcbdd>
   PrefabRemaps:
     []
@@ -1957,6 +2196,21 @@
     []
   Components:
     []
+- !<SceneObject/c3c118f5-c2c4-44c7-9863-ff498b18974b>
+  PrefabRemaps:
+    []
+  Name: AiPreviewAgent Handler
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> afaecd3a-38d8-4a6f-8535-39159383d9a2
 - !<ScriptComponent/c8e031d3-a8a1-468a-a419-427f8556de4c>
   PrefabRemaps:
     []
@@ -2315,6 +2569,22 @@
     - !<own> 0f983d21-20bc-4d89-a991-fbb95bacbd64
   Components:
     []
+- !<SceneObject/e857a34f-2ecc-4cbf-a87f-ce0a56cc711c>
+  PrefabRemaps:
+    []
+  Name: Panel
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: -20.000000, z: -100.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 9d01d615-0736-430c-9cb8-d9b89eaf0402
+    - !<own> b718a4d3-a1c7-4446-b874-16899fec0b23
 - !<SceneObject/e9454e66-5d09-4a8a-bcd7-dea762326a48>
   PrefabRemaps:
     []
@@ -2361,6 +2631,21 @@
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 3.166710, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    []
+- !<SceneObject/f07ead09-bd04-4aef-9aae-6fc3a3453f1d>
+  PrefabRemaps:
+    []
+  Name: CoffeeTable
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 150.000000, y: 0.000000, z: -445.000000}
     Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false
